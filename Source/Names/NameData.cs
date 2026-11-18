@@ -16,6 +16,9 @@ namespace ColonySurnameZh
         private static List<string> maleGiven;
         private static List<string> femaleGiven;
         private static List<string> unisexGiven;
+        private static List<string> maleGivenSingles;
+        private static List<string> femaleGivenSingles;
+        private static List<string> unisexGivenSingles;
         private static List<string> nicks;
         private static HashSet<string> surnameSet;
 
@@ -56,6 +59,9 @@ namespace ColonySurnameZh
             femaleGiven = Load("FemaleGiven.txt", FallbackFemale);
             unisexGiven = Load("UnisexGiven.txt", FallbackFemale);
             nicks = Load("Nick.txt", FallbackNick);
+            maleGivenSingles = maleGiven.Where(n => n.Length == 1).ToList();
+            femaleGivenSingles = femaleGiven.Where(n => n.Length == 1).ToList();
+            unisexGivenSingles = unisexGiven.Where(n => n.Length == 1).ToList();
             surnameSet = new HashSet<string>(surnames);
         }
 
@@ -118,6 +124,28 @@ namespace ColonySurnameZh
                 return femaleGiven.RandomElement();
             }
             return unisexGiven.RandomElement();
+        }
+
+        /// <summary>
+        /// 随机取一个单字名，供生成器在单字基础上再拼一个字时使用；池中没有单字时返回 null。
+        /// </summary>
+        public static string RandomSingleGiven(Gender gender)
+        {
+            EnsureLoaded();
+            List<string> pool;
+            if (gender == Gender.Male)
+            {
+                pool = maleGivenSingles;
+            }
+            else if (gender == Gender.Female)
+            {
+                pool = femaleGivenSingles;
+            }
+            else
+            {
+                pool = unisexGivenSingles;
+            }
+            return pool.Count > 0 ? pool.RandomElement() : null;
         }
 
         public static string RandomNick()

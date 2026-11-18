@@ -17,9 +17,13 @@ namespace ColonySurnameZh
             }
 
             string given = NameData.RandomGiven(gender);
-            if (Rand.Value < 0.65f)
+            if (given.Length == 1 && Rand.Value < 0.65f)
             {
-                given += NameData.RandomGiven(gender);
+                string extra = NameData.RandomSingleGiven(gender);
+                if (!extra.NullOrEmpty())
+                {
+                    given += extra;
+                }
             }
 
             string nick;
