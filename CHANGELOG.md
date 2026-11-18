@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+### 新增
+
+- **双字名支持**：`ChineseNameGenerator` 只在取到单字名时按 65% 概率再拼一个单字（`NameData.RandomSingleGiven`），`Data/Names` 里的双字条目直接使用，不再拼成四字名。
+- **名池扩到 600+**：`MaleGiven.txt` 227 → 664、`FemaleGiven.txt` 222 → 608、`UnisexGiven.txt` 79 → 509（新增 437 / 386 / 430 条，全部双字）；新增条目与旧条目、池内、跨池均无重复。
+
+### 验证
+
+- `.\build.ps1` 0 错误 0 警告，DLL 50,688 bytes。
+- 三个数据文件仍是 UTF-8 无 BOM、LF、末尾换行；`MaleGiven.txt` 旧有的重复「利」保留（运行时 `Distinct` 去重）。
+
 ## [0.2.0] - 2026-11-19
 
 关系改成「每条关系一个参数组」，并让姓名页与关系页彼此独立。
