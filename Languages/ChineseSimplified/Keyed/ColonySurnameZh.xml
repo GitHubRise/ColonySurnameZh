@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+	<CK.SettingsCategory>中文姓名与关系</CK.SettingsCategory>
+
+	<CK.Tab.Names>姓名</CK.Tab.Names>
+	<CK.Tab.Relations>关系</CK.Tab.Relations>
+	<CK.Tab.Marriage>婚配</CK.Tab.Marriage>
+	<CK.Tab.About>关于</CK.Tab.About>
+
+	<CK.Names.Enabled>启用中式姓名</CK.Names.Enabled>
+	<CK.Names.Chance>中文名比例</CK.Names.Chance>
+	<CK.Names.Scope>命名范围</CK.Names.Scope>
+	<CK.Names.Scope.All>全部人类</CK.Names.Scope.All>
+	<CK.Names.Scope.Player>仅玩家派系</CK.Names.Scope.Player>
+	<CK.Names.Scope.Human>仅人类种族</CK.Names.Scope.Human>
+	<CK.Names.NickChance>带小名的概率</CK.Names.NickChance>
+	<CK.Names.RenameAll>为现有人口重命名</CK.Names.RenameAll>
+	<CK.Names.RenameDone>已重命名 {0} 名殖民者。</CK.Names.RenameDone>
+	<CK.Names.Hint>只影响之后生成的人类；重命名按钮只改玩家派系里的人类。</CK.Names.Hint>
+
+	<CK.Relations.Enabled>启用关系系统</CK.Relations.Enabled>
+	<CK.Relations.OldChance>旧识生成概率</CK.Relations.OldChance>
+	<CK.Relations.OldChance.Hint>每名新殖民者与已在图上的殖民者成为旧识的概率。</CK.Relations.OldChance.Hint>
+	<CK.Relations.AutoSworn>好感足够时自动结拜</CK.Relations.AutoSworn>
+	<CK.Relations.AutoSworn.Hint>双向好感都 ≥60 并持续 5 天，自动成为结拜兄弟/姐妹。</CK.Relations.AutoSworn.Hint>
+	<CK.Relations.Frenemy>启用塑料闺蜜</CK.Relations.Frenemy>
+	<CK.Relations.Hint>关系是存档数据，关掉本项不会删除已有关系。</CK.Relations.Hint>
+
+	<CK.Marriage.Mode>婚配制度</CK.Marriage.Mode>
+	<CK.Marriage.Mode.Vanilla>原版一夫一妻</CK.Marriage.Mode.Vanilla>
+	<CK.Marriage.Mode.Polygyny>一夫多妻</CK.Marriage.Mode.Polygyny>
+	<CK.Marriage.Mode.Polyandry>一妻多夫</CK.Marriage.Mode.Polyandry>
+	<CK.Marriage.Mode.Both>两者皆可</CK.Marriage.Mode.Both>
+	<CK.Marriage.Max>每人配偶上限</CK.Marriage.Max>
+	<CK.Marriage.Hint>正妻/正夫按最早一条配偶关系判定，其余为侧室/侧夫；改回原版后新婚礼会照旧把旧配偶转为前任。</CK.Marriage.Hint>
+
+	<CK.About.Text>Colony Surname ZH 0.1.0
+中文姓名 + 旧识/事件/义亲/婚配关系。
+
+数据文件：Mods/ColonySurnameZh/Data/Names/*.txt，可直接改姓池与名池。
+设置项：姓名比例、命名范围、小名概率、旧识概率、自动结拜、塑料闺蜜、婚配制度与配偶上限。
+
+已知限制：同一人只有一个床位，多配偶不会自动加床；原版社交页仍用「妻子/丈夫」的底层标签，正妻/侧室只在社交关系行里改写。</CK.About.Text>
+
+	<CK.Gizmo.AdoptGodparent>认义亲</CK.Gizmo.AdoptGodparent>
+	<CK.Gizmo.AdoptGodparent.Desc>选择一名年龄相差至少 16 岁、无血缘、好感 ≥20 的成年人，结为义父/义母。</CK.Gizmo.AdoptGodparent.Desc>
+	<CK.Gizmo.AdoptGodparent.Invalid>对方不符合条件：需要成年、年龄差 ≥16、非血亲/恋偶、双向好感 ≥20，且双方义亲数量未满。</CK.Gizmo.AdoptGodparent.Invalid>
+
+	<CK.Msg.Sworn>{1} 与 {0} 日久生情，结为异姓手足。</CK.Msg.Sworn>
+	<CK.Msg.FrenemyBreak>{0} 与 {1} 的闺蜜情分到头了，两人成了冤家。</CK.Msg.FrenemyBreak>
+	<CK.Msg.Concubine>{0} 嫁入 {1} 家，成为 {2} 的侧室。</CK.Msg.Concubine>
+	<CK.Msg.Godparent>{0} 认 {1} 为义父/义母。</CK.Msg.Godparent>
+
+	<CK.Rel.Label.SeniorWife>正妻</CK.Rel.Label.SeniorWife>
+	<CK.Rel.Label.JuniorWife>侧室</CK.Rel.Label.JuniorWife>
+	<CK.Rel.Label.SeniorHusband>正夫</CK.Rel.Label.SeniorHusband>
+	<CK.Rel.Label.JuniorHusband>侧夫</CK.Rel.Label.JuniorHusband>
+</LanguageData>

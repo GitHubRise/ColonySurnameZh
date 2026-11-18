@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThoughtDef>
+		<defName>CK_Thought_Concubine</defName>
+		<thoughtClass>Thought_Memory</thoughtClass>
+		<durationDays>10</durationDays>
+		<stackLimit>1</stackLimit>
+		<stages>
+			<li>
+				<label>屈居偏房</label>
+				<description>嫁作侧室，终究不是正房，心里总有些不是滋味。</description>
+				<baseMoodEffect>-5</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>CK_Thought_SpouseTookSpouse</defName>
+		<thoughtClass>Thought_Memory</thoughtClass>
+		<durationDays>10</durationDays>
+		<stackLimit>1</stackLimit>
+		<stages>
+			<li>
+				<label>配偶纳妾</label>
+				<description>自己的配偶又娶/又嫁了一个人，心里堵得慌。</description>
+				<baseMoodEffect>-8</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>CK_Thought_Sworn</defName>
+		<thoughtClass>Thought_Memory</thoughtClass>
+		<durationDays>5</durationDays>
+		<stackLimit>1</stackLimit>
+		<stages>
+			<li>
+				<label>结为手足</label>
+				<description>和投缘的人结为异姓手足，往后有了照应。</description>
+				<baseMoodEffect>8</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>CK_Thought_FrenemyBreak</defName>
+		<thoughtClass>Thought_Memory</thoughtClass>
+		<durationDays>10</durationDays>
+		<stackLimit>1</stackLimit>
+		<stages>
+			<li>
+				<label>闺蜜反目</label>
+				<description>昔日无话不谈的闺蜜，如今成了互相看不顺眼的冤家。</description>
+				<baseMoodEffect>-8</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+</Defs>

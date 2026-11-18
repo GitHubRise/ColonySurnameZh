@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+	<CK.SettingsCategory>Chinese Names &amp; Relations</CK.SettingsCategory>
+
+	<CK.Tab.Names>Names</CK.Tab.Names>
+	<CK.Tab.Relations>Relations</CK.Tab.Relations>
+	<CK.Tab.Marriage>Marriage</CK.Tab.Marriage>
+	<CK.Tab.About>About</CK.Tab.About>
+
+	<CK.Names.Enabled>Enable Chinese names</CK.Names.Enabled>
+	<CK.Names.Chance>Chinese name chance</CK.Names.Chance>
+	<CK.Names.Scope>Name scope</CK.Names.Scope>
+	<CK.Names.Scope.All>All humanlike</CK.Names.Scope.All>
+	<CK.Names.Scope.Player>Player faction only</CK.Names.Scope.Player>
+	<CK.Names.Scope.Human>Human race only</CK.Names.Scope.Human>
+	<CK.Names.NickChance>Chance of a childhood nickname</CK.Names.NickChance>
+	<CK.Names.RenameAll>Rename all current colonists</CK.Names.RenameAll>
+	<CK.Names.RenameDone>Renamed {0} colonists.</CK.Names.RenameDone>
+	<CK.Names.Hint>Only affects humans generated afterwards; the rename button only renames humans in the player faction.</CK.Names.Hint>
+
+	<CK.Relations.Enabled>Enable the relation system</CK.Relations.Enabled>
+	<CK.Relations.OldChance>Old-acquaintance chance</CK.Relations.OldChance>
+	<CK.Relations.OldChance.Hint>Chance for each new colonist to know an existing colonist.</CK.Relations.OldChance.Hint>
+	<CK.Relations.AutoSworn>Auto sworn siblings at high opinion</CK.Relations.AutoSworn>
+	<CK.Relations.AutoSworn.Hint>When mutual opinion stays at 60 or above for 5 days, the pair becomes sworn siblings.</CK.Relations.AutoSworn.Hint>
+	<CK.Relations.Frenemy>Enable plastic besties</CK.Relations.Frenemy>
+	<CK.Relations.Hint>Relations are save data; turning this off does not delete existing relations.</CK.Relations.Hint>
+
+	<CK.Marriage.Mode>Marriage system</CK.Marriage.Mode>
+	<CK.Marriage.Mode.Vanilla>Vanilla monogamy</CK.Marriage.Mode.Vanilla>
+	<CK.Marriage.Mode.Polygyny>Polygyny</CK.Marriage.Mode.Polygyny>
+	<CK.Marriage.Mode.Polyandry>Polyandry</CK.Marriage.Mode.Polyandry>
+	<CK.Marriage.Mode.Both>Both allowed</CK.Marriage.Mode.Both>
+	<CK.Marriage.Max>Max spouses per pawn</CK.Marriage.Max>
+	<CK.Marriage.Hint>Primary spouse is the earliest spouse relation; the rest are secondary. Switching back to vanilla makes new weddings turn old spouses into ex-spouses again.</CK.Marriage.Hint>
+
+	<CK.About.Text>Colony Surname ZH 0.1.0
+Chinese names plus acquaintance, event, kinship, and marriage relations.
+
+Data: Mods/ColonySurnameZh/Data/Names/*.txt — edit the surname and given-name pools directly.
+Settings: name chance, scope, nickname chance, old-acquaintance chance, auto sworn siblings, plastic besties, marriage system, and spouse cap.
+
+Known limits: one bed per pawn, so extra spouses do not get extra beds; the vanilla social tab still uses the underlying husband/wife label, and primary/secondary labels are rewritten on the social relation rows.</CK.About.Text>
+
+	<CK.Gizmo.AdoptGodparent>Take as godchild</CK.Gizmo.AdoptGodparent>
+	<CK.Gizmo.AdoptGodparent.Desc>Choose an adult at least 16 years apart, not blood-related, with mutual opinion of 20 or more, and become their godparent.</CK.Gizmo.AdoptGodparent.Desc>
+	<CK.Gizmo.AdoptGodparent.Invalid>The target is not eligible: must be an adult, 16+ years apart, not blood-related or a lover, mutual opinion 20+, and both sides under the godparent cap.</CK.Gizmo.AdoptGodparent.Invalid>
+
+	<CK.Msg.Sworn>{1} and {0} have become sworn siblings.</CK.Msg.Sworn>
+	<CK.Msg.FrenemyBreak>{0} and {1} are no longer besties — they are rivals now.</CK.Msg.FrenemyBreak>
+	<CK.Msg.Concubine>{0} married into {1}'s family as {2}'s secondary spouse.</CK.Msg.Concubine>
+	<CK.Msg.Godparent>{0} became the godparent of {1}.</CK.Msg.Godparent>
+
+	<CK.Rel.Label.SeniorWife>primary wife</CK.Rel.Label.SeniorWife>
+	<CK.Rel.Label.JuniorWife>secondary wife</CK.Rel.Label.JuniorWife>
+	<CK.Rel.Label.SeniorHusband>primary husband</CK.Rel.Label.SeniorHusband>
+	<CK.Rel.Label.JuniorHusband>secondary husband</CK.Rel.Label.JuniorHusband>
+</LanguageData>
