@@ -105,6 +105,11 @@ namespace ColonySurnameZh
 
         private static void AddCoSpouseRelations(Pawn pawn)
         {
+            if (!CK_SettingsUtil.CoSpouseEnabled)
+            {
+                return;
+            }
+
             List<Pawn> mates = RelationService.Spouses(pawn)
                 .Where(p => p != null)
                 .OrderBy(p => RelationService.StartTicksOf(pawn, p))
@@ -126,17 +131,23 @@ namespace ColonySurnameZh
 
                 if (added)
                 {
-                    junior.needs?.mood?.thoughts?.memories?.TryGainMemory(CK_DefOf.CK_Thought_Concubine, senior);
-                    senior.needs?.mood?.thoughts?.memories?.TryGainMemory(CK_DefOf.CK_Thought_SpouseTookSpouse, junior);
+                    if (CK_SettingsUtil.JealousyEnabled)
+                    {
+                        junior.needs?.mood?.thoughts?.memories?.TryGainMemory(CK_DefOf.CK_Thought_Concubine, senior);
+                        senior.needs?.mood?.thoughts?.memories?.TryGainMemory(CK_DefOf.CK_Thought_SpouseTookSpouse, junior);
+                    }
 
                     Messages.Message(
                         "CK.Msg.Concubine".Translate(junior.LabelShort, pawn.LabelShort, senior.LabelShort),
                         MessageTypeDefOf.NeutralEvent);
                 }
 
-                for (int j = i + 1; j < mates.Count; j++)
+                if (CK_SettingsUtil.CoSpouseEnabled)
                 {
-                    RelationService.AddSymmetric(mates[i], mates[j], CK_DefOf.CK_CoSpouse);
+                    for (int j = i + 1; j < mates.Count; j++)
+                    {
+                        RelationService.AddSymmetric(mates[i], mates[j], CK_DefOf.CK_CoSpouse);
+                    }
                 }
             }
         }
@@ -155,7 +166,8 @@ namespace ColonySurnameZh
                 return;
             }
 
-            if (CK_SettingsUtil.MarriageMode == CK_MarriageMode.Vanilla)
+            if (CK_SettingsUtil.MarriageMode == CK_MarriageMode.Vanilla
+                || !CK_SettingsUtil.SpouseLabelsEnabled)
             {
                 return;
             }

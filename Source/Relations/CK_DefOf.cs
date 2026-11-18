@@ -54,6 +54,7 @@ namespace ColonySurnameZh
         public static ThoughtDef CK_Thought_SpouseTookSpouse;
         public static ThoughtDef CK_Thought_Sworn;
         public static ThoughtDef CK_Thought_FrenemyBreak;
+        public static ThoughtDef CK_Thought_Displaced;
 
         static CK_DefOf()
         {

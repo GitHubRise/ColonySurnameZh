@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
@@ -7,7 +7,8 @@ using Verse;
 namespace ColonySurnameZh
 {
     /// <summary>
-    /// 鍏崇郴鍚庡彴锛氭柊娈栨皯鑰呮棫璇嗘挱绉?+ 姣忔棩銆岃嚜鍔ㄧ粨鎷?/ 濉戞枡闂鸿湝鍙嶇洰銆嶇粨绠椼€?    /// </summary>
+    /// 关系后台：新殖民者旧识播种 + 每日「自动结拜 / 塑料闺蜜反目 / 争宠」结算。
+    /// </summary>
     public class CK_RelationGameComponent : GameComponent
     {
         private const int SeedIntervalTicks = 2500;
@@ -22,6 +23,7 @@ namespace ColonySurnameZh
 
         public CK_RelationGameComponent(Game game)
         {
+            CK_SettingsUtil.ApplyOverrides();
         }
 
         public override void ExposeData()
@@ -132,28 +134,117 @@ namespace ColonySurnameZh
                     continue;
                 }
 
-                if (Rand.Value < 0.10f)
-                {
-                    if (RelationService.AddSymmetric(pawn, other, CK_DefOf.CK_Rival))
-                    {
-                        added++;
-                    }
-                    continue;
-                }
-
-                PawnRelationDef forward;
-                PawnRelationDef backward;
-                PickPositive(pawn, other, out forward, out backward);
-                if (RelationService.AddPair(pawn, other, forward, backward))
+                if (SeedOne(pawn, other))
                 {
                     added++;
                 }
             }
         }
 
+        private static bool SeedOne(Pawn pawn, Pawn other)
+        {
+            CK_RelationEntry picked = PickWeightedSpawn(pawn, other);
+            if (picked == null)
+            {
+                return false;
+            }
+
+            if (picked.defName == "CK_Rival")
+            {
+                return RelationService.AddSymmetric(pawn, other, CK_DefOf.CK_Rival);
+            }
+
+            if (picked.defName == "CK_Master" || picked.defName == "CK_Apprentice")
+            {
+                bool pawnOlder = pawn.ageTracker.AgeBiologicalYearsFloat > other.ageTracker.AgeBiologicalYearsFloat;
+                PawnRelationDef forward = pawnOlder ? CK_DefOf.CK_Master : CK_DefOf.CK_Apprentice;
+                PawnRelationDef backward = pawnOlder ? CK_DefOf.CK_Apprentice : CK_DefOf.CK_Master;
+                return RelationService.AddPair(pawn, other, forward, backward);
+            }
+
+            PawnRelationDef def = SpawnDef(picked.defName);
+            return def != null && RelationService.AddPair(pawn, other, def, def);
+        }
+
+        private static PawnRelationDef SpawnDef(string defName)
+        {
+            switch (defName)
+            {
+                case "CK_Friend": return CK_DefOf.CK_Friend;
+                case "CK_Classmate": return CK_DefOf.CK_Classmate;
+                case "CK_ChildhoodFriend": return CK_DefOf.CK_ChildhoodFriend;
+                case "CK_Coworker": return CK_DefOf.CK_Coworker;
+                case "CK_Neighbor": return CK_DefOf.CK_Neighbor;
+                case "CK_NetFriend": return CK_DefOf.CK_NetFriend;
+                case "CK_PenPal": return CK_DefOf.CK_PenPal;
+                case "CK_CardBuddy": return CK_DefOf.CK_CardBuddy;
+                case "CK_Comrade": return CK_DefOf.CK_Comrade;
+                default: return null;
+            }
+        }
+
+        /// <summary>按设置里的权重在生成型关系里抽一条；年龄差不符合的会被跳过。</summary>
+        private static CK_RelationEntry PickWeightedSpawn(Pawn a, Pawn b)
+        {
+            float gap = Math.Abs(
+                a.ageTracker.AgeBiologicalYearsFloat - b.ageTracker.AgeBiologicalYearsFloat);
+
+            List<CK_RelationEntry> pool = new List<CK_RelationEntry>();
+            float total = 0f;
+            foreach (CK_RelationEntry entry in CK_RelationCatalog.Entries)
+            {
+                if (entry.group != CK_RelationCatalog.GroupSpawn || !AgeEligible(entry.defName, gap))
+                {
+                    continue;
+                }
+
+                float weight = CK_SettingsUtil.Weight(entry.defName);
+                if (weight <= 0f)
+                {
+                    continue;
+                }
+
+                pool.Add(entry);
+                total += weight;
+            }
+
+            if (total <= 0f)
+            {
+                return null;
+            }
+
+            float roll = Rand.Value * total;
+            foreach (CK_RelationEntry entry in pool)
+            {
+                roll -= CK_SettingsUtil.Weight(entry.defName);
+                if (roll <= 0f)
+                {
+                    return entry;
+                }
+            }
+
+            return pool[pool.Count - 1];
+        }
+
+        private static bool AgeEligible(string defName, float gap)
+        {
+            switch (defName)
+            {
+                case "CK_Classmate":
+                    return gap <= 8f;
+                case "CK_ChildhoodFriend":
+                    return gap <= 12f;
+                case "CK_Master":
+                case "CK_Apprentice":
+                    return gap >= 10f;
+                default:
+                    return true;
+            }
+        }
+
         private static bool TryAddSpecial(Pawn pawn, Pawn other)
         {
-            if (!CK_SettingsUtil.FrenemyEnabled)
+            if (!CK_SettingsUtil.FrenemyEnabled || !CK_SettingsUtil.DefEnabled(CK_DefOf.CK_Frenemy))
             {
                 return false;
             }
@@ -172,88 +263,67 @@ namespace ColonySurnameZh
             return RelationService.AddSymmetric(pawn, other, CK_DefOf.CK_Frenemy);
         }
 
-        private static void PickPositive(Pawn a, Pawn b, out PawnRelationDef forward, out PawnRelationDef backward)
-        {
-            forward = CK_DefOf.CK_Friend;
-            backward = CK_DefOf.CK_Friend;
-
-            float ageA = a.ageTracker.AgeBiologicalYearsFloat;
-            float ageB = b.ageTracker.AgeBiologicalYearsFloat;
-            float ageGap = Math.Abs(ageA - ageB);
-
-            if (ageGap >= 10f && Rand.Value < 0.08f)
-            {
-                if (ageA > ageB)
-                {
-                    forward = CK_DefOf.CK_Master;
-                    backward = CK_DefOf.CK_Apprentice;
-                }
-                else
-                {
-                    forward = CK_DefOf.CK_Apprentice;
-                    backward = CK_DefOf.CK_Master;
-                }
-                return;
-            }
-
-            float roll = Rand.Value * 100f;
-            if (roll < 24f)
-            {
-                forward = CK_DefOf.CK_Friend;
-                backward = CK_DefOf.CK_Friend;
-            }
-            else if (roll < 40f && ageGap <= 8f)
-            {
-                forward = CK_DefOf.CK_Classmate;
-                backward = CK_DefOf.CK_Classmate;
-            }
-            else if (roll < 51f && ageGap <= 12f)
-            {
-                forward = CK_DefOf.CK_ChildhoodFriend;
-                backward = CK_DefOf.CK_ChildhoodFriend;
-            }
-            else if (roll < 63f)
-            {
-                forward = CK_DefOf.CK_Coworker;
-                backward = CK_DefOf.CK_Coworker;
-            }
-            else if (roll < 73f)
-            {
-                forward = CK_DefOf.CK_NetFriend;
-                backward = CK_DefOf.CK_NetFriend;
-            }
-            else if (roll < 82f)
-            {
-                forward = CK_DefOf.CK_Neighbor;
-                backward = CK_DefOf.CK_Neighbor;
-            }
-            else if (roll < 89f)
-            {
-                forward = CK_DefOf.CK_CardBuddy;
-                backward = CK_DefOf.CK_CardBuddy;
-            }
-            else if (roll < 95f)
-            {
-                forward = CK_DefOf.CK_Comrade;
-                backward = CK_DefOf.CK_Comrade;
-            }
-            else
-            {
-                forward = CK_DefOf.CK_PenPal;
-                backward = CK_DefOf.CK_PenPal;
-            }
-        }
-
         private void DailyTick()
         {
-            if (CK_SettingsUtil.AutoSworn)
+            if (CK_SettingsUtil.AutoSworn && CK_SettingsUtil.DefEnabled(CK_DefOf.CK_Sworn))
             {
                 UpdateSworn();
             }
 
-            if (CK_SettingsUtil.FrenemyEnabled)
+            if (CK_SettingsUtil.FrenemyEnabled && CK_SettingsUtil.DefEnabled(CK_DefOf.CK_Frenemy))
             {
                 UpdateFrenemy();
+            }
+
+            UpdateFavor();
+        }
+
+        /// <summary>争宠：一个多配偶者每天有概率让一名侧室吃醋。</summary>
+        private static void UpdateFavor()
+        {
+            float chance = CK_SettingsUtil.FavorChance;
+            if (chance <= 0f || CK_SettingsUtil.MarriageMode == CK_MarriageMode.Vanilla)
+            {
+                return;
+            }
+
+            foreach (Map colonyMap in Find.Maps)
+            {
+                if (colonyMap == null || !colonyMap.IsPlayerHome)
+                {
+                    continue;
+                }
+
+                foreach (Pawn pawn in colonyMap.mapPawns.FreeColonistsSpawned)
+                {
+                    List<Pawn> spouses = CK_SettingsUtil.SpouseList(pawn);
+                    if (spouses.Count < 2)
+                    {
+                        continue;
+                    }
+
+                    if (spouses.Any(p => p == null || p.thingIDNumber < pawn.thingIDNumber))
+                    {
+                        continue;
+                    }
+
+                    if (Rand.Value >= chance)
+                    {
+                        continue;
+                    }
+
+                    Pawn junior = spouses[1];
+                    Pawn senior = spouses[0];
+                    if (junior?.needs?.mood?.thoughts?.memories != null)
+                    {
+                        junior.needs.mood.thoughts.memories.TryGainMemory(
+                            CK_DefOf.CK_Thought_Displaced, senior);
+                    }
+
+                    Messages.Message(
+                        "CK.Msg.Favor".Translate(junior.LabelShort, pawn.LabelShort, senior.LabelShort),
+                        MessageTypeDefOf.NegativeEvent);
+                }
             }
         }
 
@@ -294,7 +364,8 @@ namespace ColonySurnameZh
                             streak = new CK_PairStreak { a = a.thingIDNumber, b = b.thingIDNumber };
                         }
 
-                        if (a.relations.OpinionOf(b) >= 60 && b.relations.OpinionOf(a) >= 60)
+                        if (a.relations.OpinionOf(b) >= CK_SettingsUtil.SwornOpinion
+                            && b.relations.OpinionOf(a) >= CK_SettingsUtil.SwornOpinion)
                         {
                             streak.days++;
                         }
@@ -305,7 +376,7 @@ namespace ColonySurnameZh
 
                         map[key] = streak;
 
-                        if (streak.days >= 5)
+                        if (streak.days >= CK_SettingsUtil.SwornDays)
                         {
                             streak.days = 0;
                             if (RelationService.AddSymmetric(a, b, CK_DefOf.CK_Sworn))

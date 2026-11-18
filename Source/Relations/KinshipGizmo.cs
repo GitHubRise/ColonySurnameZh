@@ -33,7 +33,9 @@ namespace ColonySurnameZh
 
         private static bool CanShow(Pawn pawn)
         {
-            return pawn != null
+            return CK_SettingsUtil.KinshipEnabled
+                && CK_SettingsUtil.DefEnabled(CK_DefOf.CK_Godparent)
+                && pawn != null
                 && pawn.Spawned
                 && pawn.IsFreeColonist
                 && pawn.Faction == Faction.OfPlayer
@@ -79,7 +81,7 @@ namespace ColonySurnameZh
             }
 
             float gap = adopter.ageTracker.AgeBiologicalYearsFloat - target.ageTracker.AgeBiologicalYearsFloat;
-            if (gap < 16f)
+            if (gap < CK_SettingsUtil.KinshipMinAge)
             {
                 return false;
             }
@@ -91,12 +93,15 @@ namespace ColonySurnameZh
                 return false;
             }
 
-            if (adopter.relations.OpinionOf(target) < 20 || target.relations.OpinionOf(adopter) < 20)
+            int minOpinion = CK_SettingsUtil.KinshipMinOpinion;
+            if (adopter.relations.OpinionOf(target) < minOpinion
+                || target.relations.OpinionOf(adopter) < minOpinion)
             {
                 return false;
             }
 
-            return CountGodchildren(adopter) < 3 && CountGodparents(target) < 3;
+            return CountGodchildren(adopter) < CK_SettingsUtil.KinshipMax
+                && CountGodparents(target) < CK_SettingsUtil.KinshipMax;
         }
 
         private static void TryAdopt(Pawn adopter, Pawn target)

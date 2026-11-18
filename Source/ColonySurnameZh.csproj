@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net472</TargetFramework>
 		<AssemblyName>ColonySurnameZh</AssemblyName>
-		<Version>0.1.0</Version>
+		<Version>0.2.0</Version>
 		<RootNamespace>ColonySurnameZh</RootNamespace>
 		<LangVersion>latest</LangVersion>
 		<Nullable>disable</Nullable>
@@ -17,3 +17,4 @@
 		<PackageReference Include="Lib.Harmony" Version="2.4.3" ExcludeAssets="runtime" />
 	</ItemGroup>
 </Project>
+

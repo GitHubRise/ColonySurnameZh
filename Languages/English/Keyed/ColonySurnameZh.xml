@@ -22,9 +22,63 @@
 	<CK.Relations.OldChance>Old-acquaintance chance</CK.Relations.OldChance>
 	<CK.Relations.OldChance.Hint>Chance for each new colonist to know an existing colonist.</CK.Relations.OldChance.Hint>
 	<CK.Relations.AutoSworn>Auto sworn siblings at high opinion</CK.Relations.AutoSworn>
-	<CK.Relations.AutoSworn.Hint>When mutual opinion stays at 60 or above for 5 days, the pair becomes sworn siblings.</CK.Relations.AutoSworn.Hint>
+	<CK.Relations.SwornOpinion>Opinion needed to swear</CK.Relations.SwornOpinion>
+	<CK.Relations.SwornDays>Days needed to swear</CK.Relations.SwornDays>
+	<CK.Relations.AutoSworn.Hint>When mutual opinion stays at the threshold for the set number of days, the pair becomes sworn siblings.</CK.Relations.AutoSworn.Hint>
 	<CK.Relations.Frenemy>Enable plastic besties</CK.Relations.Frenemy>
-	<CK.Relations.Hint>Relations are save data; turning this off does not delete existing relations.</CK.Relations.Hint>
+	<CK.Relations.Kinship>Enable godparent adoption</CK.Relations.Kinship>
+	<CK.Relations.KinshipAge>Minimum age gap for godparents</CK.Relations.KinshipAge>
+	<CK.Relations.KinshipOpinion>Opinion needed for godparents</CK.Relations.KinshipOpinion>
+	<CK.Relations.KinshipMax>Godparent links per pawn</CK.Relations.KinshipMax>
+	<CK.Relations.Reset>Reset relation parameters</CK.Relations.Reset>
+	<CK.Relations.Hint>Every relation has its own switch, weight, and opinion bonus. Weight only affects old-acquaintance seeding; opinion is written back to the Def immediately. Turning one off keeps existing relations.</CK.Relations.Hint>
+
+	<CK.Rel.Group.Spawn>Acquaintances (generated)</CK.Rel.Group.Spawn>
+	<CK.Rel.Group.Event>Events (story triggers)</CK.Rel.Group.Event>
+	<CK.Rel.Group.Family>Family</CK.Rel.Group.Family>
+	<CK.Rel.Group.Marriage>Marriage</CK.Rel.Group.Marriage>
+	<CK.Rel.Group.Derived>Derived</CK.Rel.Group.Derived>
+	<CK.Rel.Group.Rules>Rules</CK.Rel.Group.Rules>
+	<CK.Rel.Weight>Weight</CK.Rel.Weight>
+	<CK.Rel.Opinion>Opinion</CK.Rel.Opinion>
+
+	<CK.RelName.CK_Friend>Friend</CK.RelName.CK_Friend>
+	<CK.RelName.CK_Classmate>Classmate</CK.RelName.CK_Classmate>
+	<CK.RelName.CK_ChildhoodFriend>Childhood friend</CK.RelName.CK_ChildhoodFriend>
+	<CK.RelName.CK_Coworker>Coworker</CK.RelName.CK_Coworker>
+	<CK.RelName.CK_Neighbor>Neighbor</CK.RelName.CK_Neighbor>
+	<CK.RelName.CK_NetFriend>Online friend</CK.RelName.CK_NetFriend>
+	<CK.RelName.CK_PenPal>Pen pal</CK.RelName.CK_PenPal>
+	<CK.RelName.CK_CardBuddy>Card buddy</CK.RelName.CK_CardBuddy>
+	<CK.RelName.CK_Comrade>Comrade-in-arms</CK.RelName.CK_Comrade>
+	<CK.RelName.CK_Master>Master</CK.RelName.CK_Master>
+	<CK.RelName.CK_Apprentice>Apprentice</CK.RelName.CK_Apprentice>
+	<CK.RelName.CK_Rival>Rival</CK.RelName.CK_Rival>
+	<CK.RelName.CK_LifeSaver>Life saver</CK.RelName.CK_LifeSaver>
+	<CK.RelName.CK_LifeSaved>Saved by</CK.RelName.CK_LifeSaved>
+	<CK.RelName.CK_SwornFriend>Sworn friend</CK.RelName.CK_SwornFriend>
+	<CK.RelName.CK_Doctor>Attending doctor</CK.RelName.CK_Doctor>
+	<CK.RelName.CK_Patient>Patient</CK.RelName.CK_Patient>
+	<CK.RelName.CK_FormerPatient>Fellow patient</CK.RelName.CK_FormerPatient>
+	<CK.RelName.CK_Cellmate>Cellmate</CK.RelName.CK_Cellmate>
+	<CK.RelName.CK_Conspirator>Conspirator</CK.RelName.CK_Conspirator>
+	<CK.RelName.CK_Teacher>Teacher</CK.RelName.CK_Teacher>
+	<CK.RelName.CK_Student>Student</CK.RelName.CK_Student>
+	<CK.RelName.CK_BattleBrother>Battle brother</CK.RelName.CK_BattleBrother>
+	<CK.RelName.CK_DrinkingBuddy>Drinking buddy</CK.RelName.CK_DrinkingBuddy>
+	<CK.RelName.CK_Roommate>Roommate</CK.RelName.CK_Roommate>
+	<CK.RelName.CK_TravelCompanion>Travel companion</CK.RelName.CK_TravelCompanion>
+	<CK.RelName.CK_Enemy>Enemy</CK.RelName.CK_Enemy>
+	<CK.RelName.CK_Sworn>Sworn sibling</CK.RelName.CK_Sworn>
+	<CK.RelName.CK_SwornKin>Sworn kin</CK.RelName.CK_SwornKin>
+	<CK.RelName.CK_Godparent>Godparent</CK.RelName.CK_Godparent>
+	<CK.RelName.CK_Godchild>Godchild</CK.RelName.CK_Godchild>
+	<CK.RelName.CK_Frenemy>Plastic bestie</CK.RelName.CK_Frenemy>
+	<CK.RelName.CK_SeniorSpouse>Primary spouse</CK.RelName.CK_SeniorSpouse>
+	<CK.RelName.CK_JuniorSpouse>Secondary spouse</CK.RelName.CK_JuniorSpouse>
+	<CK.RelName.CK_CoSpouse>Co-spouse</CK.RelName.CK_CoSpouse>
+	<CK.RelName.CK_LoveRival>Love rival</CK.RelName.CK_LoveRival>
+	<CK.RelName.CK_SameSchool>Same school</CK.RelName.CK_SameSchool>
 
 	<CK.Marriage.Mode>Marriage system</CK.Marriage.Mode>
 	<CK.Marriage.Mode.Vanilla>Vanilla monogamy</CK.Marriage.Mode.Vanilla>
@@ -32,13 +86,17 @@
 	<CK.Marriage.Mode.Polyandry>Polyandry</CK.Marriage.Mode.Polyandry>
 	<CK.Marriage.Mode.Both>Both allowed</CK.Marriage.Mode.Both>
 	<CK.Marriage.Max>Max spouses per pawn</CK.Marriage.Max>
+	<CK.Marriage.Labels>Show primary/secondary labels</CK.Marriage.Labels>
+	<CK.Marriage.CoSpouse>Create co-spouse relations</CK.Marriage.CoSpouse>
+	<CK.Marriage.Jealousy>Concubine jealousy thoughts</CK.Marriage.Jealousy>
+	<CK.Marriage.Favor>Favoritism event chance</CK.Marriage.Favor>
 	<CK.Marriage.Hint>Primary spouse is the earliest spouse relation; the rest are secondary. Switching back to vanilla makes new weddings turn old spouses into ex-spouses again.</CK.Marriage.Hint>
 
-	<CK.About.Text>Colony Surname ZH 0.1.0
+	<CK.About.Text>Colony Surname ZH 0.2.0
 Chinese names plus acquaintance, event, kinship, and marriage relations.
 
 Data: Mods/ColonySurnameZh/Data/Names/*.txt — edit the surname and given-name pools directly.
-Settings: name chance, scope, nickname chance, old-acquaintance chance, auto sworn siblings, plastic besties, marriage system, and spouse cap.
+Settings: Names tab (chance/scope/nickname), Relations tab (per-relation switch, weight, opinion; sworn thresholds; godparent rules), Marriage tab (system, cap, primary/secondary labels, co-spouse, jealousy, favoritism).
 
 Known limits: one bed per pawn, so extra spouses do not get extra beds; the vanilla social tab still uses the underlying husband/wife label, and primary/secondary labels are rewritten on the social relation rows.</CK.About.Text>
 
@@ -50,6 +108,7 @@ Known limits: one bed per pawn, so extra spouses do not get extra beds; the vani
 	<CK.Msg.FrenemyBreak>{0} and {1} are no longer besties — they are rivals now.</CK.Msg.FrenemyBreak>
 	<CK.Msg.Concubine>{0} married into {1}'s family as {2}'s secondary spouse.</CK.Msg.Concubine>
 	<CK.Msg.Godparent>{0} became the godparent of {1}.</CK.Msg.Godparent>
+	<CK.Msg.Favor>{0} is jealous that {1} went to {2}.</CK.Msg.Favor>
 
 	<CK.Rel.Label.SeniorWife>primary wife</CK.Rel.Label.SeniorWife>
 	<CK.Rel.Label.JuniorWife>secondary wife</CK.Rel.Label.JuniorWife>

@@ -22,9 +22,63 @@
 	<CK.Relations.OldChance>旧识生成概率</CK.Relations.OldChance>
 	<CK.Relations.OldChance.Hint>每名新殖民者与已在图上的殖民者成为旧识的概率。</CK.Relations.OldChance.Hint>
 	<CK.Relations.AutoSworn>好感足够时自动结拜</CK.Relations.AutoSworn>
-	<CK.Relations.AutoSworn.Hint>双向好感都 ≥60 并持续 5 天，自动成为结拜兄弟/姐妹。</CK.Relations.AutoSworn.Hint>
+	<CK.Relations.SwornOpinion>结拜所需双向好感</CK.Relations.SwornOpinion>
+	<CK.Relations.SwornDays>结拜所需连续天数</CK.Relations.SwornDays>
+	<CK.Relations.AutoSworn.Hint>双向好感达到阈值并持续若干天，自动成为结拜兄弟/姐妹。</CK.Relations.AutoSworn.Hint>
 	<CK.Relations.Frenemy>启用塑料闺蜜</CK.Relations.Frenemy>
-	<CK.Relations.Hint>关系是存档数据，关掉本项不会删除已有关系。</CK.Relations.Hint>
+	<CK.Relations.Kinship>启用认义亲</CK.Relations.Kinship>
+	<CK.Relations.KinshipAge>义亲最小年龄差</CK.Relations.KinshipAge>
+	<CK.Relations.KinshipOpinion>义亲所需双向好感</CK.Relations.KinshipOpinion>
+	<CK.Relations.KinshipMax>每人义亲上限</CK.Relations.KinshipMax>
+	<CK.Relations.Reset>恢复关系默认参数</CK.Relations.Reset>
+	<CK.Relations.Hint>每条关系都有独立开关、权重与好感加成；权重只影响旧识播种，好感会立即写回 Def。关掉某项不会删除已有关系。</CK.Relations.Hint>
+
+	<CK.Rel.Group.Spawn>旧识（生成型）</CK.Rel.Group.Spawn>
+	<CK.Rel.Group.Event>事件（剧情触发）</CK.Rel.Group.Event>
+	<CK.Rel.Group.Family>家庭</CK.Rel.Group.Family>
+	<CK.Rel.Group.Marriage>婚配</CK.Rel.Group.Marriage>
+	<CK.Rel.Group.Derived>派生</CK.Rel.Group.Derived>
+	<CK.Rel.Group.Rules>规则</CK.Rel.Group.Rules>
+	<CK.Rel.Weight>权重</CK.Rel.Weight>
+	<CK.Rel.Opinion>好感</CK.Rel.Opinion>
+
+	<CK.RelName.CK_Friend>朋友</CK.RelName.CK_Friend>
+	<CK.RelName.CK_Classmate>同学</CK.RelName.CK_Classmate>
+	<CK.RelName.CK_ChildhoodFriend>发小</CK.RelName.CK_ChildhoodFriend>
+	<CK.RelName.CK_Coworker>工友</CK.RelName.CK_Coworker>
+	<CK.RelName.CK_Neighbor>邻居</CK.RelName.CK_Neighbor>
+	<CK.RelName.CK_NetFriend>网友</CK.RelName.CK_NetFriend>
+	<CK.RelName.CK_PenPal>笔友</CK.RelName.CK_PenPal>
+	<CK.RelName.CK_CardBuddy>牌友</CK.RelName.CK_CardBuddy>
+	<CK.RelName.CK_Comrade>战友</CK.RelName.CK_Comrade>
+	<CK.RelName.CK_Master>师父</CK.RelName.CK_Master>
+	<CK.RelName.CK_Apprentice>徒弟</CK.RelName.CK_Apprentice>
+	<CK.RelName.CK_Rival>冤家</CK.RelName.CK_Rival>
+	<CK.RelName.CK_LifeSaver>救命恩人</CK.RelName.CK_LifeSaver>
+	<CK.RelName.CK_LifeSaved>被救者</CK.RelName.CK_LifeSaved>
+	<CK.RelName.CK_SwornFriend>生死之交</CK.RelName.CK_SwornFriend>
+	<CK.RelName.CK_Doctor>主治医生</CK.RelName.CK_Doctor>
+	<CK.RelName.CK_Patient>病人</CK.RelName.CK_Patient>
+	<CK.RelName.CK_FormerPatient>病友</CK.RelName.CK_FormerPatient>
+	<CK.RelName.CK_Cellmate>狱友</CK.RelName.CK_Cellmate>
+	<CK.RelName.CK_Conspirator>同谋</CK.RelName.CK_Conspirator>
+	<CK.RelName.CK_Teacher>老师</CK.RelName.CK_Teacher>
+	<CK.RelName.CK_Student>学生</CK.RelName.CK_Student>
+	<CK.RelName.CK_BattleBrother>袍泽</CK.RelName.CK_BattleBrother>
+	<CK.RelName.CK_DrinkingBuddy>酒友</CK.RelName.CK_DrinkingBuddy>
+	<CK.RelName.CK_Roommate>室友</CK.RelName.CK_Roommate>
+	<CK.RelName.CK_TravelCompanion>旅伴</CK.RelName.CK_TravelCompanion>
+	<CK.RelName.CK_Enemy>仇人</CK.RelName.CK_Enemy>
+	<CK.RelName.CK_Sworn>结拜兄弟/姐妹</CK.RelName.CK_Sworn>
+	<CK.RelName.CK_SwornKin>义兄/义妹</CK.RelName.CK_SwornKin>
+	<CK.RelName.CK_Godparent>义父/义母</CK.RelName.CK_Godparent>
+	<CK.RelName.CK_Godchild>义子/义女</CK.RelName.CK_Godchild>
+	<CK.RelName.CK_Frenemy>塑料闺蜜</CK.RelName.CK_Frenemy>
+	<CK.RelName.CK_SeniorSpouse>正妻/正夫</CK.RelName.CK_SeniorSpouse>
+	<CK.RelName.CK_JuniorSpouse>侧室/侧夫</CK.RelName.CK_JuniorSpouse>
+	<CK.RelName.CK_CoSpouse>共夫/共妻</CK.RelName.CK_CoSpouse>
+	<CK.RelName.CK_LoveRival>情敌</CK.RelName.CK_LoveRival>
+	<CK.RelName.CK_SameSchool>同门</CK.RelName.CK_SameSchool>
 
 	<CK.Marriage.Mode>婚配制度</CK.Marriage.Mode>
 	<CK.Marriage.Mode.Vanilla>原版一夫一妻</CK.Marriage.Mode.Vanilla>
@@ -32,13 +86,17 @@
 	<CK.Marriage.Mode.Polyandry>一妻多夫</CK.Marriage.Mode.Polyandry>
 	<CK.Marriage.Mode.Both>两者皆可</CK.Marriage.Mode.Both>
 	<CK.Marriage.Max>每人配偶上限</CK.Marriage.Max>
+	<CK.Marriage.Labels>显示正妻/侧室标签</CK.Marriage.Labels>
+	<CK.Marriage.CoSpouse>生成共夫/共妻关系</CK.Marriage.CoSpouse>
+	<CK.Marriage.Jealousy>纳妾/侧室嫉妒念头</CK.Marriage.Jealousy>
+	<CK.Marriage.Favor>争宠事件概率</CK.Marriage.Favor>
 	<CK.Marriage.Hint>正妻/正夫按最早一条配偶关系判定，其余为侧室/侧夫；改回原版后新婚礼会照旧把旧配偶转为前任。</CK.Marriage.Hint>
 
-	<CK.About.Text>Colony Surname ZH 0.1.0
+	<CK.About.Text>Colony Surname ZH 0.2.0
 中文姓名 + 旧识/事件/义亲/婚配关系。
 
 数据文件：Mods/ColonySurnameZh/Data/Names/*.txt，可直接改姓池与名池。
-设置项：姓名比例、命名范围、小名概率、旧识概率、自动结拜、塑料闺蜜、婚配制度与配偶上限。
+设置项：姓名页（比例/范围/小名）、关系页（每条关系的开关、权重、好感；结拜阈值与天数；义亲条件）、婚配页（制度、上限、正侧标签、共夫、嫉妒、争宠）。
 
 已知限制：同一人只有一个床位，多配偶不会自动加床；原版社交页仍用「妻子/丈夫」的底层标签，正妻/侧室只在社交关系行里改写。</CK.About.Text>
 
@@ -50,6 +108,7 @@
 	<CK.Msg.FrenemyBreak>{0} 与 {1} 的闺蜜情分到头了，两人成了冤家。</CK.Msg.FrenemyBreak>
 	<CK.Msg.Concubine>{0} 嫁入 {1} 家，成为 {2} 的侧室。</CK.Msg.Concubine>
 	<CK.Msg.Godparent>{0} 认 {1} 为义父/义母。</CK.Msg.Godparent>
+	<CK.Msg.Favor>{0} 因 {1} 去了 {2} 那边而争风吃醋。</CK.Msg.Favor>
 
 	<CK.Rel.Label.SeniorWife>正妻</CK.Rel.Label.SeniorWife>
 	<CK.Rel.Label.JuniorWife>侧室</CK.Rel.Label.JuniorWife>

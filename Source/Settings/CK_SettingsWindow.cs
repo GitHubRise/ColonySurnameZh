@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -6,7 +7,8 @@ using Verse;
 namespace ColonySurnameZh
 {
     /// <summary>
-    /// 简易四页签设置面板：姓名 / 关系 / 婚配 / 关于。
+    /// 四页签设置面板：姓名 / 关系 / 婚配 / 关于。
+    /// 关系页里每条关系都是一个独立参数组：启用、权重、好感。
     /// </summary>
     public class CK_SettingsWindow
     {
@@ -31,6 +33,8 @@ namespace ColonySurnameZh
                 return;
             }
 
+            CK_SettingsUtil.ApplyOverrides();
+
             Widgets.DrawMenuSection(rect);
             Rect inner = rect.ContractedBy(8f);
 
@@ -54,7 +58,8 @@ namespace ColonySurnameZh
             }
 
             Rect body = new Rect(inner.x, tabBar.yMax + 6f, inner.width, inner.height - 38f);
-            Rect view = new Rect(0f, 0f, body.width - 20f, 1000f);
+            float viewHeight = TabViewHeight();
+            Rect view = new Rect(0f, 0f, body.width - 20f, viewHeight);
             Widgets.BeginScrollView(body, ref scroll, view);
             Listing_Standard list = new Listing_Standard();
             list.Begin(view);
@@ -75,6 +80,21 @@ namespace ColonySurnameZh
             }
             list.End();
             Widgets.EndScrollView();
+        }
+
+        private float TabViewHeight()
+        {
+            switch (tab)
+            {
+                case 1:
+                    return 1900f;
+                case 2:
+                    return 520f;
+                case 3:
+                    return 420f;
+                default:
+                    return 460f;
+            }
         }
 
         private void DrawNames(Listing_Standard list)
@@ -101,13 +121,98 @@ namespace ColonySurnameZh
             list.CheckboxLabeled("CK.Relations.Enabled".Translate(), ref settings.relationsEnabled);
             SliderPercent(list, "CK.Relations.OldChance".Translate(), ref settings.oldAcquaintanceChance);
             list.Label("CK.Relations.OldChance.Hint".Translate());
-            list.Gap(6f);
+
+            SectionHeader(list, "CK.Rel.Group.Spawn");
+            foreach (CK_RelationEntry entry in CK_RelationCatalog.Entries)
+            {
+                if (entry.group == CK_RelationCatalog.GroupSpawn)
+                {
+                    RelationRow(list, entry, true);
+                }
+            }
+
+            SectionHeader(list, "CK.Rel.Group.Event");
+            foreach (CK_RelationEntry entry in CK_RelationCatalog.Entries)
+            {
+                if (entry.group == CK_RelationCatalog.GroupEvent)
+                {
+                    RelationRow(list, entry, false);
+                }
+            }
+
+            SectionHeader(list, "CK.Rel.Group.Family");
+            foreach (CK_RelationEntry entry in CK_RelationCatalog.Entries)
+            {
+                if (entry.group == CK_RelationCatalog.GroupFamily)
+                {
+                    RelationRow(list, entry, false);
+                }
+            }
+
+            SectionHeader(list, "CK.Rel.Group.Marriage");
+            foreach (CK_RelationEntry entry in CK_RelationCatalog.Entries)
+            {
+                if (entry.group == CK_RelationCatalog.GroupMarriage)
+                {
+                    RelationRow(list, entry, false);
+                }
+            }
+
+            SectionHeader(list, "CK.Rel.Group.Derived");
+            foreach (CK_RelationEntry entry in CK_RelationCatalog.Entries)
+            {
+                if (entry.group == CK_RelationCatalog.GroupDerived)
+                {
+                    RelationRow(list, entry, false);
+                }
+            }
+
+            SectionHeader(list, "CK.Rel.Group.Rules");
             list.CheckboxLabeled("CK.Relations.AutoSworn".Translate(), ref settings.autoSworn);
-            list.Label("CK.Relations.AutoSworn.Hint".Translate());
-            list.Gap(6f);
+            SliderInt(list, "CK.Relations.SwornOpinion".Translate(), ref settings.swornOpinion, 0, 100);
+            SliderInt(list, "CK.Relations.SwornDays".Translate(), ref settings.swornDays, 1, 30);
             list.CheckboxLabeled("CK.Relations.Frenemy".Translate(), ref settings.frenemyEnabled);
-            list.Gap(6f);
+
+            list.CheckboxLabeled("CK.Relations.Kinship".Translate(), ref settings.kinshipEnabled);
+            SliderInt(list, "CK.Relations.KinshipAge".Translate(), ref settings.kinshipMinAge, 1, 40);
+            SliderInt(list, "CK.Relations.KinshipOpinion".Translate(), ref settings.kinshipMinOpinion, -20, 60);
+            SliderInt(list, "CK.Relations.KinshipMax".Translate(), ref settings.kinshipMax, 1, 10);
+
+            list.Gap(8f);
+            if (list.ButtonText("CK.Relations.Reset".Translate()))
+            {
+                ResetRelationTunings();
+            }
             list.Label("CK.Relations.Hint".Translate());
+        }
+
+        private void RelationRow(Listing_Standard list, CK_RelationEntry entry, bool showWeight)
+        {
+            CK_RelationTuning tuning = settings.Tuning(entry.defName);
+            if (tuning == null)
+            {
+                return;
+            }
+
+            Rect row = list.GetRect(30f);
+            Rect check = new Rect(row.x, row.y, 200f, 28f);
+            Widgets.CheckboxLabeled(check, entry.labelKey.Translate(), ref tuning.enabled);
+
+            float x = row.x + 206f;
+            if (showWeight)
+            {
+                Stepper(new Rect(x, row.y, 150f, 28f), ref tuning.weight, 0f, 100f, 5f, "CK.Rel.Weight".Translate());
+                x += 156f;
+            }
+
+            StepperInt(new Rect(x, row.y, 150f, 28f), ref tuning.opinion, -40, 40, 1, "CK.Rel.Opinion".Translate());
+            CK_SettingsUtil.ApplyOpinion(entry.defName);
+        }
+
+        private static void SectionHeader(Listing_Standard list, string key)
+        {
+            list.Gap(8f);
+            list.Label(key.Translate().Colorize(new Color(0.75f, 0.9f, 1f)));
         }
 
         private void DrawMarriage(Listing_Standard list)
@@ -121,6 +226,11 @@ namespace ColonySurnameZh
                 settings.maxSpouses = settings.maxSpouses >= 10 ? 1 : settings.maxSpouses + 1;
             });
             list.Gap(6f);
+            list.CheckboxLabeled("CK.Marriage.Labels".Translate(), ref settings.spouseLabelsEnabled);
+            list.CheckboxLabeled("CK.Marriage.CoSpouse".Translate(), ref settings.coSpouseEnabled);
+            list.CheckboxLabeled("CK.Marriage.Jealousy".Translate(), ref settings.jealousyEnabled);
+            SliderPercent(list, "CK.Marriage.Favor".Translate(), ref settings.favorChance);
+            list.Gap(6f);
             list.Label("CK.Marriage.Hint".Translate());
         }
 
@@ -131,10 +241,69 @@ namespace ColonySurnameZh
             Widgets.Label(list.GetRect(height), text);
         }
 
+        private void ResetRelationTunings()
+        {
+            foreach (CK_RelationEntry entry in CK_RelationCatalog.Entries)
+            {
+                CK_RelationTuning tuning = settings.Tuning(entry.defName);
+                if (tuning == null)
+                {
+                    continue;
+                }
+
+                tuning.enabled = true;
+                tuning.weight = entry.defaultWeight;
+                tuning.opinion = entry.defaultOpinion;
+                CK_SettingsUtil.ApplyOpinion(entry.defName);
+            }
+        }
+
         private static void SliderPercent(Listing_Standard list, string label, ref float value)
         {
             list.Label(label + "：" + (value * 100f).ToString("F0") + "%");
             value = Widgets.HorizontalSlider(list.GetRect(28f), value, 0f, 1f);
+        }
+
+        private static void SliderInt(Listing_Standard list, string label, ref int value, int min, int max)
+        {
+            list.Label(label + "：" + value);
+            value = Mathf.RoundToInt(Widgets.HorizontalSlider(list.GetRect(28f), value, min, max));
+        }
+
+        private static void Stepper(Rect rect, ref float value, float min, float max, float step, string label)
+        {
+            Widgets.Label(rect.LeftPart(0.34f), label);
+            Rect minus = new Rect(rect.x + rect.width * 0.34f, rect.y, 24f, rect.height);
+            Rect plus = new Rect(rect.xMax - 24f, rect.y, 24f, rect.height);
+            Rect valueRect = new Rect(minus.xMax, rect.y, plus.x - minus.xMax, rect.height);
+
+            if (Widgets.ButtonText(minus, "-"))
+            {
+                value = Mathf.Clamp(value - step, min, max);
+            }
+            if (Widgets.ButtonText(plus, "+"))
+            {
+                value = Mathf.Clamp(value + step, min, max);
+            }
+            Widgets.Label(valueRect, value.ToString("F0"));
+        }
+
+        private static void StepperInt(Rect rect, ref int value, int min, int max, int step, string label)
+        {
+            Widgets.Label(rect.LeftPart(0.34f), label);
+            Rect minus = new Rect(rect.x + rect.width * 0.34f, rect.y, 24f, rect.height);
+            Rect plus = new Rect(rect.xMax - 24f, rect.y, 24f, rect.height);
+            Rect valueRect = new Rect(minus.xMax, rect.y, plus.x - minus.xMax, rect.height);
+
+            if (Widgets.ButtonText(minus, "-"))
+            {
+                value = Mathf.Clamp(value - step, min, max);
+            }
+            if (Widgets.ButtonText(plus, "+"))
+            {
+                value = Mathf.Clamp(value + step, min, max);
+            }
+            Widgets.Label(valueRect, value >= 0 ? "+" + value : value.ToString());
         }
 
         private static void CycleRow(Listing_Standard list, string label, string value, Action next)

@@ -65,6 +65,13 @@ namespace ColonySurnameZh
                 return false;
             }
 
+            // 每种关系在设置里都有独立开关；关掉后不再写入新关系，已有关系保留。
+            if (!CK_SettingsUtil.DefEnabled(aToB)
+                || (bToA != null && !CK_SettingsUtil.DefEnabled(bToA)))
+            {
+                return false;
+            }
+
             bool added = false;
             if (!HasDirect(a, b, aToB))
             {

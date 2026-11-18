@@ -57,4 +57,18 @@
 		</stages>
 	</ThoughtDef>
 
+	<ThoughtDef>
+		<defName>CK_Thought_Displaced</defName>
+		<thoughtClass>Thought_Memory</thoughtClass>
+		<durationDays>5</durationDays>
+		<stackLimit>1</stackLimit>
+		<stages>
+			<li>
+				<label>争宠落败</label>
+				<description>配偶去了正房那边，自己被冷落了一回。</description>
+				<baseMoodEffect>-4</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
 </Defs>
